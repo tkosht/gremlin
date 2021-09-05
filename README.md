@@ -1,9 +1,21 @@
-# webapi repository
+# gremlin repository
 gremlin repository
 
-# build container
+# build & startup containers
 
 ```
 make
+```
+
+# check starting up containers
+
+```
+make ps
+```
+
+# down containers
+
+```
+make down
 ```
 
