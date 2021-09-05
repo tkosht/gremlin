@@ -1,1 +1,17 @@
-docker/docker-compose.cpu.yml
+version: '3.7'
+
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: docker/app/Dockerfile
+      args:
+        user_name: $user_name
+        group_name: $group_name
+    image: $project.app
+    container_name: $project.app
+    tty: true
+    volumes:
+      - .:/home/$user_name/workspace
+    working_dir: /home/$user_name/workspace
+

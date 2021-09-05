@@ -1,0 +1,2 @@
+hosts: [gremlin-server]
+port: 8182

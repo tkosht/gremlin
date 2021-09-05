@@ -1,0 +1,42 @@
+version: '3.7'
+
+services:
+  gremlin-console:
+    build:
+      context: ./
+      dockerfile: docker/gremlin/console/Dockerfile
+    image: $project.gremlin-console
+    container_name: $project.gremlin-console
+    volumes:
+      - ./data/:/data/
+      - ./conf/gremlin/console/remote.yml:/opt/gremlin-console/conf/remote.yml
+      - ./conf/gremlin/console/remote-research.yml:/opt/gremlin-console/conf/remote-research.yml
+
+  gremlin-server:
+    build:
+      context: ./
+      dockerfile: docker/gremlin/server/Dockerfile
+    image: $project.gremlin-server
+    container_name: $project.gremlin-server
+    ports:
+      - "8182"
+    volumes:
+      - ./data/:/data/
+      - ./conf/gremlin/server/gremlin-server.yml:/opt/gremlin-server/conf/gremlin-server.yml
+    entrypoint: >
+      /bin/bash /opt/gremlin-server/bin/gremlin-server.sh conf/gremlin-server.yml
+
+  gremlin-server-research:
+    image: $project.gremlin-server
+    container_name: $project.gremlin-server-research
+    tty: true
+    ports:
+      - "8182"
+    volumes:
+      - ./data/:/data/
+      - ./conf/gremlin/server/gremlin-server.yml:/opt/gremlin-server/conf/gremlin-server.yml
+    depends_on:
+      - gremlin-server
+    entrypoint: >
+      /bin/bash
+

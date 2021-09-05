@@ -1,0 +1,8 @@
+:remote connect tinkerpop.server conf/remote.yml
+:remote console
+// g.addV('person').property('name','hello')
+// g.addV('person').property('name','world')
+g.V().values('name')
+g.V().count()
+g.io("/data/test.json").write()
+:exit

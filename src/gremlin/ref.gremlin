@@ -1,0 +1,5 @@
+:remote connect tinkerpop.server conf/remote.yml
+:remote console
+g.V().values('name')
+g.V().count()
+:exit

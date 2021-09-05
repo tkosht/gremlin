@@ -1,0 +1,6 @@
+:remote connect tinkerpop.server conf/remote.yml
+:remote console
+g.io("/data/test.json").read()
+g.V().values('name')
+g.V().count()
+:exit
