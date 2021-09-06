@@ -19,22 +19,28 @@ services:
     image: $project.gremlin-server
     container_name: $project.gremlin-server
     ports:
-      - "8182"
+      - "8182:8182"
     volumes:
       - ./data/:/data/
       - ./conf/gremlin/server/gremlin-server.yml:/opt/gremlin-server/conf/gremlin-server.yml
+      - ./conf/gremlin/server/gremlin-server-neo4j.yml:/opt/gremlin-server/conf/gremlin-server-neo4j.yml
+      - ./conf/gremlin/server/neo4j.properties:/opt/gremlin-server/conf/neo4j.properties
     entrypoint: >
-      /bin/bash /opt/gremlin-server/bin/gremlin-server.sh conf/gremlin-server.yml
+      /bin/bash bin/gremlin-server.sh conf/gremlin-server.yml
+      # /bin/bash bin/gremlin-server.sh conf/gremlin-server-neo4j.yml
+
 
   gremlin-server-research:
     image: $project.gremlin-server
     container_name: $project.gremlin-server-research
     tty: true
     ports:
-      - "8182"
+      - "8182:8182"
     volumes:
       - ./data/:/data/
       - ./conf/gremlin/server/gremlin-server.yml:/opt/gremlin-server/conf/gremlin-server.yml
+      - ./conf/gremlin/server/gremlin-server-neo4j.yml:/opt/gremlin-server/conf/gremlin-server-neo4j.yml
+      - ./conf/gremlin/server/neo4j.properties:/opt/gremlin-server/conf/neo4j.properties
     depends_on:
       - gremlin-server
     entrypoint: >
